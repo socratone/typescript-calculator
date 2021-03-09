@@ -14,49 +14,60 @@ class App {
     this.controller = new Controller({
       target,
       onNumberButton: (number:string) => {
-        this.screen.setState({ 
+        const state = { 
           result: this.screen.data.result,
           number: this.screen.data.number + number
-        });
+        }
+        this.screen.setState(state);
+        this.screen.pushHistory(state);
       },
       onPlusButton: () => {
-        this.screen.setState({
+        const state = {
           result: this.screen.data.result + Number(this.screen.data.number),
           number: ''
-        });
+        }
+        this.screen.setState(state);
+        this.screen.pushHistory(state);
       },
       onMinusButton: () => {
-        this.screen.setState({
+        const state = {
           result: this.screen.data.result - Number(this.screen.data.number),
           number: ''
-        });
+        }
+        this.screen.setState(state);
+        this.screen.setState(state);
+        this.screen.pushHistory(state);
       },
       onMultipleButton: () => {
-        this.screen.setState({
+        const state = {
           result: this.screen.data.result * Number(this.screen.data.number),
           number: ''
-        });
+        }
+        this.screen.setState(state);
+        this.screen.pushHistory(state);
       },
       onDivideButton: () => {
         const number = Number(this.screen.data.number);
-        if (number !== 0) {
-          this.screen.setState({
-            result: this.screen.data.result / number,
-            number: ''
-          });
+        if (number === 0) return;
+        const state = {
+          result: this.screen.data.result / number,
+          number: ''
         }
+        this.screen.setState(state);
+        this.screen.pushHistory(state);
       },
       onClearButton: () => {
-        this.screen.setState({
+        if (this.screen.data.result === 0 && this.screen.data.number === '') return;
+        const state = {
           result: 0,
           number: ''
-        });
+        }
+        this.screen.setState(state);
+        this.screen.pushHistory(state);
       },
       onBackButton: () => {
-        this.screen.setState({
-          result: 0,
-          number: ''
-        });
+        this.screen.popHistory();
+        this.screen.setState(this.screen.getRecentHistory());
       },
     });
   }

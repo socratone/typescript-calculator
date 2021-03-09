@@ -11,10 +11,8 @@ interface State {
 
 class Screen {
   target: HTMLElement;
-  data: {
-    result: number;
-    number: string;
-  }
+  data: State;
+  history: State[];
   
   constructor({ target }: Prop) {
     this.target = target;
@@ -22,10 +20,30 @@ class Screen {
       result: 0,
       number: ''
     }
+    this.history = [];
     target.insertAdjacentHTML('beforeend', `
       <section class="screen"></section>
     `);
     this.render();
+  }
+
+  pushHistory(data: State) {
+    this.history.push(data);
+  }
+
+  popHistory() {
+    this.history.pop();
+  }
+
+  getRecentHistory(): State {
+    if (this.history.length === 0) {
+      return {
+        result: 0,
+        number: ''
+      };
+    } else {
+      return this.history[this.history.length - 1];
+    }
   }
 
   setState({ result, number }: State) {
