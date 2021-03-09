@@ -10,12 +10,10 @@ interface State {
 }
 
 class Screen {
-  target: HTMLElement;
   data: State;
   history: State[];
   
   constructor({ target }: Prop) {
-    this.target = target;
     this.data = {
       result: 0,
       number: ''
