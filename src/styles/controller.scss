@@ -1,0 +1,24 @@
+.controller {
+  display: grid;
+  grid-template-columns: repeat(4, 50px);
+  grid-template-rows: repeat(4, 50px);
+  gap: 10px;
+
+  button {
+    font-size: 20px;
+    width: 50px;
+    height: 50px;
+    border: gainsboro solid 1px;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+  }
+
+  button:focus {
+    border: dodgerblue solid 2px;
+  }
+
+  button:active {
+    transform: scale(0.95);
+  }
+}
